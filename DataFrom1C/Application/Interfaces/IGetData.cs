@@ -1,0 +1,16 @@
+﻿using DataFrom1C.Domain;
+
+namespace DataFrom1C.Application.Interfaces
+{
+    public interface IGetData
+    {
+        Task<IEnumerable<PurchasePayment>> PurchasePaymentAsync();
+        Task<IEnumerable<PurchaseInvoice>> PurchaseInvoiceAsync();
+        Task<IEnumerable<SalesInvoice>> SalesInvoiceAsync();
+        Task<IEnumerable<SalesPayment>> SalesPaymentAsync();
+        Task<IEnumerable<Contract>> ContractAsync();
+        Task<IEnumerable<Contractor>> ContractorAsync();
+        Task<IEnumerable<PurchaseGoodAndService>> PurchaseGoodAndServiceAsync();
+        Task<IEnumerable<SalesGoodAndService>> SalesGoodAndServiceAsync();
+    }
+}
