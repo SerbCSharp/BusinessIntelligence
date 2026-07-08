@@ -72,5 +72,11 @@ namespace DataFrom1C.Application.Services
             var getWarehouse = await _getData.WarehouseAsync();
             await _saveData.WarehouseAsync(getWarehouse);
         }
+
+        public async Task CashFlowItemAsync()
+        {
+            var getCashFlowItem = await _getData.CashFlowItemAsync();
+            await _saveData.CashFlowItemAsync(getCashFlowItem);
+        }
     }
 }

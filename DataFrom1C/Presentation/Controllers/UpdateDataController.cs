@@ -23,6 +23,7 @@ namespace DataFrom1C.Presentation.Controllers
             await _updateDataService.UnitAsync();
             await _updateDataService.WarehouseAsync();
             await _updateDataService.ProductAndServiceAsync();
+            await _updateDataService.CashFlowItemAsync();
             return NoContent();
         }
     }

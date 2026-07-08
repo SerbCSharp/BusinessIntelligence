@@ -1,5 +1,6 @@
 ﻿using DataFrom1C.Application.Interfaces;
 using DataFrom1C.Domain;
+using DataFrom1C.Infrastructure.DataSource.Models.CashFlowArticles;
 using DataFrom1C.Infrastructure.DataSource.Models.ContractCounterparties;
 using DataFrom1C.Infrastructure.DataSource.Models.Counterparty;
 using DataFrom1C.Infrastructure.DataSource.Models.CreditToCurrentAccount;
@@ -41,7 +42,7 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
         public async Task<IEnumerable<PurchasePayment>> PurchasePaymentAsync() // Списание с расчетного счета
         {
             var debitToCurrentAccountUrl = ApiUrl + "Document_СписаниеСРасчетногоСчета?$format=json"
-                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key,НазначениеПлатежа"
+                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key,НазначениеПлатежа,СтатьяДвиженияДенежныхСредств_Key"
                 + "&$filter=(DeletionMark eq false) and (Posted eq true)";
             using HttpResponseMessage debitToCurrentAccountResponse = await httpClient.GetAsync(debitToCurrentAccountUrl);
             var debitToCurrentAccount = await debitToCurrentAccountResponse.Content.ReadFromJsonAsync<DebitToCurrentAccount>();
@@ -51,14 +52,15 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 Date = x.Date,
                 Amount = x.Amount,
                 ContractId = x.ContractId,
-                PaymentPurpose = x.PaymentPurpose
+                PaymentPurpose = x.PaymentPurpose,
+                CashFlowItemId = x.CashFlowItemId
             });
         }
 
         public async Task<IEnumerable<SalesPayment>> SalesPaymentAsync() // Поступление на расчетный счет
         {
             var creditToCurrentAccountUrl = ApiUrl + "Document_ПоступлениеНаРасчетныйСчет?$format=json"
-                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key,НазначениеПлатежа"
+                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key,НазначениеПлатежа,СтатьяДвиженияДенежныхСредств_Key"
                 + "&$filter=DeletionMark eq false and Posted eq true";
             using HttpResponseMessage creditToCurrentAccountResponse = await httpClient.GetAsync(creditToCurrentAccountUrl);
             var creditToCurrentAccount = await creditToCurrentAccountResponse.Content.ReadFromJsonAsync<CreditToCurrentAccount>();
@@ -68,7 +70,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 Date = x.Date,
                 Amount = x.Amount,
                 ContractId = x.ContractId,
-                PaymentPurpose = x.PaymentPurpose
+                PaymentPurpose = x.PaymentPurpose,
+                CashFlowItemId = x.CashFlowItemId
             });
         }
 
@@ -271,6 +274,20 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
             return storage.Value.Select(x => new Warehouse
             {
                 WarehouseId = x.Ref_Key,
+                Name = x.Description
+            });
+        }
+
+        public async Task<IEnumerable<CashFlowItem>> CashFlowItemAsync() // Статьи движения денежных средств
+        {
+            var cashFlowArticlesUrl = ApiUrl + "Catalog_СтатьиДвиженияДенежныхСредств?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage cashFlowArticlesResponse = await httpClient.GetAsync(cashFlowArticlesUrl);
+            var cashFlowArticles = await cashFlowArticlesResponse.Content.ReadFromJsonAsync<CashFlowArticles>();
+            return cashFlowArticles.Value.Select(x => new CashFlowItem
+            {
+                CashFlowItemId = x.Ref_Key,
                 Name = x.Description
             });
         }

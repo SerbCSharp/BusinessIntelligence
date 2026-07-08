@@ -10,5 +10,6 @@ namespace DataFrom1C.Domain
         public decimal Amount { get; set; }
         public string ContractId { get; set; }
         public string PaymentPurpose { get; set; }
+        public string CashFlowItemId { get; set; }
     }
 }

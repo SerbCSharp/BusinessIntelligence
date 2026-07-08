@@ -16,5 +16,6 @@ namespace DataFrom1C.Infrastructure.Repositories
         public DbSet<ProductAndService> ProductsAndServices { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<CashFlowItem> CashFlowItems { get; set; }
     }
 }

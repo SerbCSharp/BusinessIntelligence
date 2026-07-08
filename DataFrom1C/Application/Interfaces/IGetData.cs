@@ -15,5 +15,6 @@ namespace DataFrom1C.Application.Interfaces
         Task<IEnumerable<Unit>> UnitAsync();
         Task<IEnumerable<ProductAndService>> ProductAndServiceAsync();
         Task<IEnumerable<Warehouse>> WarehouseAsync();
+        Task<IEnumerable<CashFlowItem>> CashFlowItemAsync();
     }
 }
