@@ -12,5 +12,8 @@ namespace DataFrom1C.Application.Interfaces
         Task ContractorAsync(IEnumerable<Contractor> contractors);
         Task PurchaseGoodAndServiceAsync(IEnumerable<PurchaseGoodAndService> purchaseGoodAndService);
         Task SalesGoodAndServiceAsync(IEnumerable<SalesGoodAndService> salesGoodAndService);
+        Task UnitAsync(IEnumerable<Unit> units);
+        Task ProductAndServiceAsync(IEnumerable<ProductAndService> productsAndServices);
+        Task WarehouseAsync(IEnumerable<Warehouse> warehouses);
     }
 }

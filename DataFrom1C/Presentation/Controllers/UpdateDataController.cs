@@ -20,6 +20,9 @@ namespace DataFrom1C.Presentation.Controllers
             await _updateDataService.SalesGoodAndServiceAsync();
             await _updateDataService.ContractAsync();
             await _updateDataService.ContractorAsync();
+            await _updateDataService.UnitAsync();
+            await _updateDataService.WarehouseAsync();
+            await _updateDataService.ProductAndServiceAsync();
             return NoContent();
         }
     }

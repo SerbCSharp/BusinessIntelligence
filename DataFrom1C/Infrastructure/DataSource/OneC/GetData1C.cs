@@ -5,9 +5,12 @@ using DataFrom1C.Infrastructure.DataSource.Models.Counterparty;
 using DataFrom1C.Infrastructure.DataSource.Models.CreditToCurrentAccount;
 using DataFrom1C.Infrastructure.DataSource.Models.DebitToCurrentAccount;
 using DataFrom1C.Infrastructure.DataSource.Models.ImplementationConstructionWorks;
+using DataFrom1C.Infrastructure.DataSource.Models.Nomenclature;
 using DataFrom1C.Infrastructure.DataSource.Models.ReceiptGoodsServices;
 using DataFrom1C.Infrastructure.DataSource.Models.ReceiptProcessing;
 using DataFrom1C.Infrastructure.DataSource.Models.SaleGoodsServices;
+using DataFrom1C.Infrastructure.DataSource.Models.Storage;
+using DataFrom1C.Infrastructure.DataSource.Models.UnitOfMeasure;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Text;
@@ -228,6 +231,48 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 });
 
             return salesGood.Concat(salesServices);
+        }
+
+        public async Task<IEnumerable<Unit>> UnitAsync() // Единицы измерения
+        {
+            var unitOfMeasureUrl = ApiUrl + "Catalog_КлассификаторЕдиницИзмерения?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage unitOfMeasureResponse = await httpClient.GetAsync(unitOfMeasureUrl);
+            var unitOfMeasure = await unitOfMeasureResponse.Content.ReadFromJsonAsync<UnitOfMeasure>();
+            return unitOfMeasure.Value.Select(x => new Unit
+            {
+                UnitId = x.Ref_Key,
+                Name = x.Description
+            });
+        }
+
+        public async Task<IEnumerable<ProductAndService>> ProductAndServiceAsync() // Номенклатура
+        {
+            var nomenclatureUrl = ApiUrl + "Catalog_Номенклатура?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage nomenclatureResponse = await httpClient.GetAsync(nomenclatureUrl);
+            var nomenclature = await nomenclatureResponse.Content.ReadFromJsonAsync<Nomenclature>();
+            return nomenclature.Value.Select(x => new ProductAndService
+            {
+                ProductAndServiceId = x.Ref_Key,
+                Name = x.Description
+            });
+        }
+
+        public async Task<IEnumerable<Warehouse>> WarehouseAsync() // Склады
+        {
+            var storageUrl = ApiUrl + "Catalog_Склады?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage storageResponse = await httpClient.GetAsync(storageUrl);
+            var storage = await storageResponse.Content.ReadFromJsonAsync<Storage>();
+            return storage.Value.Select(x => new Warehouse
+            {
+                WarehouseId = x.Ref_Key,
+                Name = x.Description
+            });
         }
     }
 }

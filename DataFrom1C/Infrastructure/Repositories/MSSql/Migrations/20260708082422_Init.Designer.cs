@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260703072155_AddWarehouseId")]
-    partial class AddWarehouseId
+    [Migration("20260708082422_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,48 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.ToTable("Contractors");
                 });
 
+            modelBuilder.Entity("DataFrom1C.Domain.ProductAndService", b =>
+                {
+                    b.Property<string>("ProductAndServiceId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductAndServiceId");
+
+                    b.ToTable("ProductsAndServices");
+                });
+
+            modelBuilder.Entity("DataFrom1C.Domain.PurchaseGoodAndService", b =>
+                {
+                    b.Property<Guid>("RowId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DocumentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomenclatureId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UnitsOfMeasurementId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RowId");
+
+                    b.ToTable("PurchaseGoodsAndServices");
+                });
+
             modelBuilder.Entity("DataFrom1C.Domain.PurchaseInvoice", b =>
                 {
                     b.Property<string>("DocumentId")
@@ -107,6 +149,35 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.ToTable("PurchasePayments");
                 });
 
+            modelBuilder.Entity("DataFrom1C.Domain.SalesGoodAndService", b =>
+                {
+                    b.Property<Guid>("RowId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DocumentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomenclatureId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UnitsOfMeasurementId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RowId");
+
+                    b.ToTable("SalesGoodsAndServices");
+                });
+
             modelBuilder.Entity("DataFrom1C.Domain.SalesInvoice", b =>
                 {
                     b.Property<string>("DocumentId")
@@ -149,6 +220,32 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.HasKey("DocumentId");
 
                     b.ToTable("SalesPayments");
+                });
+
+            modelBuilder.Entity("DataFrom1C.Domain.Unit", b =>
+                {
+                    b.Property<string>("UnitId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UnitId");
+
+                    b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("DataFrom1C.Domain.Warehouse", b =>
+                {
+                    b.Property<string>("WarehouseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WarehouseId");
+
+                    b.ToTable("Warehouses");
                 });
 #pragma warning restore 612, 618
         }

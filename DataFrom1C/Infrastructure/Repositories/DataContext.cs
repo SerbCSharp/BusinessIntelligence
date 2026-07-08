@@ -13,5 +13,8 @@ namespace DataFrom1C.Infrastructure.Repositories
         public DbSet<Contractor> Contractors { get; set; }
         public DbSet<PurchaseGoodAndService> PurchaseGoodsAndServices { get; set; }
         public DbSet<SalesGoodAndService> SalesGoodsAndServices { get; set; }
+        public DbSet<ProductAndService> ProductsAndServices { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
     }
 }

@@ -54,5 +54,23 @@ namespace DataFrom1C.Application.Services
             var getSalesGoodAndService = await _getData.SalesGoodAndServiceAsync();
             await _saveData.SalesGoodAndServiceAsync(getSalesGoodAndService);
         }
+
+        public async Task UnitAsync()
+        {
+            var getUnit = await _getData.UnitAsync();
+            await _saveData.UnitAsync(getUnit);
+        }
+
+        public async Task ProductAndServiceAsync()
+        {
+            var getProductAndService = await _getData.ProductAndServiceAsync();
+            await _saveData.ProductAndServiceAsync(getProductAndService);
+        }
+
+        public async Task WarehouseAsync()
+        {
+            var getWarehouse = await _getData.WarehouseAsync();
+            await _saveData.WarehouseAsync(getWarehouse);
+        }
     }
 }

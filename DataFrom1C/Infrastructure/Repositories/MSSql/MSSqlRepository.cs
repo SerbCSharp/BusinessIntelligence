@@ -63,5 +63,26 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql
             await _dataContext.SalesGoodsAndServices.AddRangeAsync(salesGoodAndService);
             await _dataContext.SaveChangesAsync();
         }
+
+        public async Task UnitAsync(IEnumerable<Unit> units)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE Units");
+            await _dataContext.Units.AddRangeAsync(units);
+            await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task ProductAndServiceAsync(IEnumerable<ProductAndService> productsAndServices)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE ProductsAndServices");
+            await _dataContext.ProductsAndServices.AddRangeAsync(productsAndServices);
+            await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task WarehouseAsync(IEnumerable<Warehouse> warehouses)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE Warehouses");
+            await _dataContext.Warehouses.AddRangeAsync(warehouses);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }
