@@ -13,11 +13,13 @@ namespace DataFrom1C.Presentation.Controllers
         public async Task<IActionResult> UpdateAsync()
         {
             await _updateDataService.PurchasePaymentAsync();
+            await _updateDataService.SalesPaymentAsync();
+
             await _updateDataService.PurchaseInvoiceAsync();
             await _updateDataService.SalesInvoiceAsync();
-            await _updateDataService.SalesPaymentAsync();
             await _updateDataService.PurchaseGoodAndServiceAsync();
             await _updateDataService.SalesGoodAndServiceAsync();
+
             await _updateDataService.ContractAsync();
             await _updateDataService.ContractorAsync();
             await _updateDataService.UnitAsync();
