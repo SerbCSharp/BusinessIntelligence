@@ -6,16 +6,16 @@ namespace ProcurementPriceDynamics.Presentation.Controllers
 {
 
     [ApiController]
-    public class ProcurementPriceDynamicsController(ProcurementPriceDynamicsService procurementPriceDynamicsService, 
+    public class ProcurementPriceController(ProcurementPriceService procurementPriceService, 
         ExportingReportsToExcel exportingReportsToExcel) : ControllerBase
     {
-        private readonly ProcurementPriceDynamicsService _procurementPriceDynamicsService = procurementPriceDynamicsService;
+        private readonly ProcurementPriceService _procurementPriceService = procurementPriceService;
         private readonly ExportingReportsToExcel _exportingReportsToExcel = exportingReportsToExcel;
 
         [HttpGet("ProcurementPriceDynamics")]
         public async Task<IActionResult> ProcurementPriceDynamics()
         {
-            var procurementPrice = await _procurementPriceDynamicsService.ProcurementPriceAsync();
+            var procurementPrice = await _procurementPriceService.ProcurementPriceAsync();
             var fileBytes = _exportingReportsToExcel.Browse(procurementPrice);
             string fileName = "Browse.xlsx";
             string contentType = "application/octet-stream";

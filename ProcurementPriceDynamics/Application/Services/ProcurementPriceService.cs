@@ -3,7 +3,7 @@ using ProcurementPriceDynamics.Domain;
 
 namespace ProcurementPriceDynamics.Application.Services
 {
-    public class ProcurementPriceDynamicsService(IGetData getData)
+    public class ProcurementPriceService(IGetData getData)
     {
         private readonly IGetData _getData = getData;
 
