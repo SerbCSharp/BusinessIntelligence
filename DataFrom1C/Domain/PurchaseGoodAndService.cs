@@ -7,8 +7,8 @@ namespace DataFrom1C.Domain
         [Key]
         public Guid RowId { get; set; }
         public string DocumentId { get; set; }
-        public string NomenclatureId { get; set; }
-        public string UnitsOfMeasurementId { get; set; }
+        public string ProductAndServiceId { get; set; }
+        public string UnitId { get; set; }
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Amount { get; set; }

@@ -151,8 +151,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 .Select(z => new PurchaseGoodAndService
                 {
                     DocumentId = z.DocumentId,
-                    NomenclatureId = z.NomenclatureId,
-                    UnitsOfMeasurementId = z.UnitsOfMeasurementId,
+                    ProductAndServiceId = z.NomenclatureId,
+                    UnitId = z.UnitsOfMeasureId,
                     Quantity = z.Quantity,
                     Price = z.Price,
                     Amount = z.Amount,
@@ -162,8 +162,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 .Select(z => new PurchaseGoodAndService
                 {
                     DocumentId = z.DocumentId,
-                    NomenclatureId = z.NomenclatureId,
-                    UnitsOfMeasurementId = z.UnitsOfMeasurementId,
+                    ProductAndServiceId = z.NomenclatureId,
+                    UnitId = z.UnitsOfMeasureId,
                     Quantity = z.Quantity,
                     Price = z.Price,
                     Amount = z.Amount,
@@ -215,8 +215,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 .Select(z => new SalesGoodAndService
                 {
                     DocumentId = z.DocumentId,
-                    NomenclatureId = z.NomenclatureId,
-                    UnitsOfMeasurementId = z.UnitsOfMeasurementId,
+                    ProductAndServiceId = z.NomenclatureId,
+                    UnitId = z.UnitsOfMeasureId,
                     Quantity = z.Quantity,
                     Price = z.Price,
                     Amount = z.Amount,
@@ -226,8 +226,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 .Select(z => new SalesGoodAndService
                 {
                     DocumentId = z.DocumentId,
-                    NomenclatureId = z.NomenclatureId,
-                    UnitsOfMeasurementId = z.UnitsOfMeasurementId,
+                    ProductAndServiceId = z.NomenclatureId,
+                    UnitId = z.UnitsOfMeasureId,
                     Quantity = z.Quantity,
                     Price = z.Price,
                     Amount = z.Amount,

@@ -14,7 +14,7 @@ namespace DataFrom1C.Infrastructure.DataSource.Models.ReceiptGoodsServices
         public string NomenclatureId { get; set; }
 
         [JsonPropertyName("ЕдиницаИзмерения_Key")]
-        public string UnitsOfMeasurementId { get; set; }
+        public string UnitsOfMeasureId { get; set; }
 
         [JsonPropertyName("Количество")]
         public decimal Quantity { get; set; }
