@@ -11,7 +11,9 @@ namespace ProcurementPriceDynamics.Infrastructure.Repositories.MSSql
 
         public async Task<IEnumerable<ProcurementPrice>> ProcurementPriceAsync()
         {
-            string sql = "SELECT DocumentId, Date, Amount, ContractId, PaymentPurpose, CashFlowItems.Name FROM PurchasePayments LEFT JOIN CashFlowItems ON PurchasePayments.CashFlowItemId = CashFlowItems.CashFlowItemId";
+            string sql = "SELECT DocumentId, Date, Amount, ContractId, PaymentPurpose, CashFlowItems.Name AS CashFlowItem " +
+                "FROM PurchasePayments " +
+                "LEFT JOIN CashFlowItems ON PurchasePayments.CashFlowItemId = CashFlowItems.CashFlowItemId";
             return await _dbConnection.QueryAsync<ProcurementPrice>(sql);
 
             //string sql = "SELECT PurchaseInvoices.Date, PurchaseInvoices.Amount AS DocumentAmount, " +
