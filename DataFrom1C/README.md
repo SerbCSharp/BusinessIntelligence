@@ -1,1 +1,1 @@
-# Data from 1C
+# Data from 1C (Загрузка данных из 1С)
