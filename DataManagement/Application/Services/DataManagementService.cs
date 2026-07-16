@@ -1,0 +1,15 @@
+﻿using DataManagement.Application.Interfaces;
+using DataManagement.Domain;
+
+namespace DataManagement.Application.Services
+{
+    public class DataManagementService(IGetData getData)
+    {
+        private readonly IGetData _getData = getData;
+
+        public async Task<IEnumerable<AddObjectOfSaleInPurchasePayment>> AddObjectOfSaleInPurchasePaymentAsync()
+        {
+            return await _getData.AddObjectOfSaleInPurchasePaymentAsync();
+        }
+    }
+}

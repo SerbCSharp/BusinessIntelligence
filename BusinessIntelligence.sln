@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFromExcel", "DataFromEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcurementPriceDynamics", "ProcurementPriceDynamics\ProcurementPriceDynamics.csproj", "{7274789F-0B34-4176-984D-43A9B098FEC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManagement", "DataManagement\DataManagement.csproj", "{384B55EE-6793-4FF5-BB92-67BB5A097067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{7274789F-0B34-4176-984D-43A9B098FEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7274789F-0B34-4176-984D-43A9B098FEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7274789F-0B34-4176-984D-43A9B098FEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384B55EE-6793-4FF5-BB92-67BB5A097067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384B55EE-6793-4FF5-BB92-67BB5A097067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384B55EE-6793-4FF5-BB92-67BB5A097067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384B55EE-6793-4FF5-BB92-67BB5A097067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
