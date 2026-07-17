@@ -7,6 +7,7 @@ using DataFrom1C.Infrastructure.DataSource.Models.CreditToCurrentAccount;
 using DataFrom1C.Infrastructure.DataSource.Models.DebitToCurrentAccount;
 using DataFrom1C.Infrastructure.DataSource.Models.ImplementationConstructionWorks;
 using DataFrom1C.Infrastructure.DataSource.Models.Nomenclature;
+using DataFrom1C.Infrastructure.DataSource.Models.NomenclatureGroup;
 using DataFrom1C.Infrastructure.DataSource.Models.ReceiptGoodsServices;
 using DataFrom1C.Infrastructure.DataSource.Models.ReceiptProcessing;
 using DataFrom1C.Infrastructure.DataSource.Models.SaleGoodsServices;
@@ -175,7 +176,7 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
         public async Task<IEnumerable<Contract>> ContractAsync() // Договоры контрагентов
         {
             var contractCounterpartiesUrl = ApiUrl + "Catalog_ДоговорыКонтрагентов?$format=json"
-                + "&$select=Ref_Key,Номер,Description,Дата,Сумма,Owner_Key"
+                + "&$select=Ref_Key,Номер,Description,Дата,Сумма,Owner_Key,НоменклатурнаяГруппа_Key"
                 + "&$filter=DeletionMark eq false";
             using HttpResponseMessage contractCounterpartiesResponse = await httpClient.GetAsync(contractCounterpartiesUrl);
             var contractCounterparties = await contractCounterpartiesResponse.Content.ReadFromJsonAsync<ContractCounterparties>();
@@ -186,7 +187,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 Amount = x.Amount ?? 0,
                 Number = x.Number,
                 Name = x.Name,
-                ContractorId = x.ContractorId
+                ContractorId = x.ContractorId,
+                ProductGroupId = x.ProductGroupId
             });
         }
 
@@ -290,6 +292,28 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 CashFlowItemId = x.Ref_Key,
                 Name = x.Description
             });
+        }
+
+        public async Task<IEnumerable<ProductGroup>> ProductGroupAsync() // Номенклатурные группы
+        {
+            var nomenclatureGroupsUrl = ApiUrl + "Catalog_НоменклатурныеГруппы?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage nomenclatureGroupsResponse = await httpClient.GetAsync(nomenclatureGroupsUrl);
+            var nomenclatureGroups = await nomenclatureGroupsResponse.Content.ReadFromJsonAsync<NomenclatureGroup>();
+            return nomenclatureGroups.Value.Select(x => new ProductGroup
+            {
+                ProductGroupId = x.Ref_Key,
+                Name = x.Description
+            });
+        }
+
+        public async Task<AdditionalInformation> AdditionalInformationAsync() // Дополнительные сведения
+        {
+            var additionalInformationUrl = ApiUrl + "InformationRegister_ДополнительныеСведения?$format=json"
+                + "&$select=Объект,Значение,Значение_Type";
+            using HttpResponseMessage additionalInformationResponse = await httpClient.GetAsync(additionalInformationUrl);
+            return await additionalInformationResponse.Content.ReadFromJsonAsync<AdditionalInformation>();
         }
     }
 }
