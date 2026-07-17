@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260708082422_Init")]
+    [Migration("20260717085429_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,6 +24,19 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DataFrom1C.Domain.CashFlowItem", b =>
+                {
+                    b.Property<string>("CashFlowItemId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CashFlowItemId");
+
+                    b.ToTable("CashFlowItems");
+                });
 
             modelBuilder.Entity("DataFrom1C.Domain.Contract", b =>
                 {
@@ -88,16 +101,16 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.Property<string>("DocumentId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomenclatureId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductAndServiceId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UnitsOfMeasurementId")
+                    b.Property<string>("UnitId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RowId");
@@ -135,6 +148,9 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("CashFlowItemId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ContractId")
                         .HasColumnType("nvarchar(max)");
 
@@ -161,16 +177,16 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.Property<string>("DocumentId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomenclatureId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductAndServiceId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UnitsOfMeasurementId")
+                    b.Property<string>("UnitId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RowId");
@@ -207,6 +223,9 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CashFlowItemId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContractId")
                         .HasColumnType("nvarchar(max)");

@@ -1,0 +1,10 @@
+﻿using DataFromExcel.Domain;
+using Microsoft.EntityFrameworkCore;
+
+namespace DataFromExcel.Infrastructure.Repositories
+{
+    public class ObjectOfSaleContext(DbContextOptions<ObjectOfSaleContext> options) : DbContext(options)
+    {
+        public DbSet<ObjectOfSaleInPurchasePayment> ObjectOfSaleInPurchasePayments { get; set; }
+    }
+}

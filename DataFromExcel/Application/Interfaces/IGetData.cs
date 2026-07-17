@@ -1,0 +1,9 @@
+﻿using DataFromExcel.Domain;
+
+namespace DataFromExcel.Application.Interfaces
+{
+    public interface IGetData
+    {
+        IEnumerable<ObjectOfSaleInPurchasePayment> ObjectOfSaleInPurchasePayment();
+    }
+}

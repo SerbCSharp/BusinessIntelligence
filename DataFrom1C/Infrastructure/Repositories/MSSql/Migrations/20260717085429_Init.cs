@@ -12,6 +12,18 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CashFlowItems",
+                columns: table => new
+                {
+                    CashFlowItemId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CashFlowItems", x => x.CashFlowItemId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contractors",
                 columns: table => new
                 {
@@ -57,8 +69,8 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                 {
                     RowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DocumentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NomenclatureId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnitsOfMeasurementId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductAndServiceId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
@@ -91,7 +103,8 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ContractId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PaymentPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CashFlowItemId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,8 +117,8 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                 {
                     RowId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DocumentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NomenclatureId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnitsOfMeasurementId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductAndServiceId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
@@ -138,7 +151,8 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ContractId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PaymentPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CashFlowItemId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,6 +187,9 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CashFlowItems");
+
             migrationBuilder.DropTable(
                 name: "Contractors");
 

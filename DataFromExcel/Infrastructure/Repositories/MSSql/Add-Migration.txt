@@ -1,0 +1,2 @@
+﻿﻿Add-Migration AddObjectOfSaleInPurchasePayments -Context ObjectOfSaleContext -OutputDir Infrastructure/Repositories/MSSql/Migrations
+Update-Database
