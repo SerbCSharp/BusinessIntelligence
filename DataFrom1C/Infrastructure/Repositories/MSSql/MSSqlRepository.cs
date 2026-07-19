@@ -98,5 +98,11 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql
             await _dataContext.ProductGroups.AddRangeAsync(productGroups);
             await _dataContext.SaveChangesAsync();
         }
+        public async Task MoreInformationAsync(IEnumerable<MoreInformation> moreInformations)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE MoreInformations");
+            await _dataContext.MoreInformations.AddRangeAsync(moreInformations);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }

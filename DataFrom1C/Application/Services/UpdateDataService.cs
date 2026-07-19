@@ -84,5 +84,10 @@ namespace DataFrom1C.Application.Services
             var getProductGroup = await _getData.ProductGroupAsync();
             await _saveData.ProductGroupAsync(getProductGroup);
         }
+        public async Task MoreInformationAsync()
+        {
+            var getMoreInformation = await _getData.MoreInformationAsync();
+            await _saveData.MoreInformationAsync(getMoreInformation);
+        }
     }
 }

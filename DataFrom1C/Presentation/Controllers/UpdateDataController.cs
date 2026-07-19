@@ -27,6 +27,7 @@ namespace DataFrom1C.Presentation.Controllers
             await _updateDataService.ProductAndServiceAsync();
             await _updateDataService.CashFlowItemAsync();
             await _updateDataService.ProductGroupAsync();
+            await _updateDataService.MoreInformationAsync();
             return NoContent();
         }
     }

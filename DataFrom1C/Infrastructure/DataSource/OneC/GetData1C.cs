@@ -309,7 +309,7 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
             });
         }
 
-        public async Task<MoreInformation> MoreInformationAsync() // Дополнительные сведения
+        public async Task<IEnumerable<MoreInformation>> MoreInformationAsync() // Дополнительные сведения
         {
             var additionalInformationUrl = ApiUrl + "InformationRegister_ДополнительныеСведения?$format=json"
                 + "&$select=Объект,Значение,Значение_Type";
@@ -317,8 +317,9 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
             var additionalInformation = await additionalInformationResponse.Content.ReadFromJsonAsync<AdditionalInformation>();
             return additionalInformation.Value.Select(x => new MoreInformation
             {
-                ProductGroupId = x.Ref_Key,
-                Name = x.Description
+                ObjectId = x.ObjectId,
+                ObjectValue = x.ObjectValue,
+                ValueType = x.ValueType
             });
         }
     }
