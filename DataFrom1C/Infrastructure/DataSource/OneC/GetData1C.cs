@@ -1,5 +1,6 @@
 ﻿using DataFrom1C.Application.Interfaces;
 using DataFrom1C.Domain;
+using DataFrom1C.Infrastructure.DataSource.Models.AdditionalInformation;
 using DataFrom1C.Infrastructure.DataSource.Models.CashFlowArticles;
 using DataFrom1C.Infrastructure.DataSource.Models.ContractCounterparties;
 using DataFrom1C.Infrastructure.DataSource.Models.Counterparty;
@@ -308,12 +309,17 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
             });
         }
 
-        public async Task<AdditionalInformation> AdditionalInformationAsync() // Дополнительные сведения
+        public async Task<MoreInformation> MoreInformationAsync() // Дополнительные сведения
         {
             var additionalInformationUrl = ApiUrl + "InformationRegister_ДополнительныеСведения?$format=json"
                 + "&$select=Объект,Значение,Значение_Type";
             using HttpResponseMessage additionalInformationResponse = await httpClient.GetAsync(additionalInformationUrl);
-            return await additionalInformationResponse.Content.ReadFromJsonAsync<AdditionalInformation>();
+            var additionalInformation = await additionalInformationResponse.Content.ReadFromJsonAsync<AdditionalInformation>();
+            return additionalInformation.Value.Select(x => new MoreInformation
+            {
+                ProductGroupId = x.Ref_Key,
+                Name = x.Description
+            });
         }
     }
 }
