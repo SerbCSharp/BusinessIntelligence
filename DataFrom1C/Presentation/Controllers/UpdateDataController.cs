@@ -14,20 +14,22 @@ namespace DataFrom1C.Presentation.Controllers
         {
             await _updateDataService.PurchasePaymentAsync();
             await _updateDataService.SalesPaymentAsync();
+            await _updateDataService.PaymentDetailsAsync();
+            await _updateDataService.MoreInformationAsync();
+            await _updateDataService.CostItemAsync();
 
             await _updateDataService.PurchaseInvoiceAsync();
             await _updateDataService.SalesInvoiceAsync();
             await _updateDataService.PurchaseGoodAndServiceAsync();
             await _updateDataService.SalesGoodAndServiceAsync();
+            await _updateDataService.ProductAndServiceAsync();
 
             await _updateDataService.ContractAsync();
             await _updateDataService.ContractorAsync();
             await _updateDataService.UnitAsync();
             await _updateDataService.WarehouseAsync();
-            await _updateDataService.ProductAndServiceAsync();
             await _updateDataService.CashFlowItemAsync();
             await _updateDataService.ProductGroupAsync();
-            await _updateDataService.MoreInformationAsync();
             return NoContent();
         }
     }

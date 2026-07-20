@@ -18,5 +18,7 @@ namespace DataFrom1C.Application.Interfaces
         Task CashFlowItemAsync(IEnumerable<CashFlowItem> cashFlowItems);
         Task ProductGroupAsync(IEnumerable<ProductGroup> productGroups);
         Task MoreInformationAsync(IEnumerable<MoreInformation> moreInformations);
+        Task PaymentDetailsAsync(IEnumerable<PaymentDetails> paymentDetails);
+        Task CostItemAsync(IEnumerable<CostItem> costItems);
     }
 }

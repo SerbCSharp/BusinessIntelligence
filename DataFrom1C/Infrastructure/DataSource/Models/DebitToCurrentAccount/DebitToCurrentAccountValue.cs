@@ -19,5 +19,8 @@ namespace DataFrom1C.Infrastructure.DataSource.Models.DebitToCurrentAccount
 
         [JsonPropertyName("СтатьяДвиженияДенежныхСредств_Key")]
         public string CashFlowItemId { get; set; }
+
+        [JsonPropertyName("РасшифровкаПлатежа")]
+        public PaymentExplanation[] PaymentsExplanation { get; set; }
     }
 }

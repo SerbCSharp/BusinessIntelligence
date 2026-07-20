@@ -6,6 +6,7 @@ using DataFrom1C.Infrastructure.DataSource.Models.ContractCounterparties;
 using DataFrom1C.Infrastructure.DataSource.Models.Counterparty;
 using DataFrom1C.Infrastructure.DataSource.Models.CreditToCurrentAccount;
 using DataFrom1C.Infrastructure.DataSource.Models.DebitToCurrentAccount;
+using DataFrom1C.Infrastructure.DataSource.Models.ExpenseItem;
 using DataFrom1C.Infrastructure.DataSource.Models.ImplementationConstructionWorks;
 using DataFrom1C.Infrastructure.DataSource.Models.Nomenclature;
 using DataFrom1C.Infrastructure.DataSource.Models.NomenclatureGroup;
@@ -320,6 +321,38 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 ObjectId = x.ObjectId,
                 ObjectValue = x.ObjectValue,
                 ValueType = x.ValueType
+            });
+        }
+
+        public async Task<IEnumerable<PaymentDetails>> PaymentDetailsAsync() // Расшифровка платежа
+        {
+            var paymentExplanationUrl = ApiUrl + "Document_СписаниеСРасчетногоСчета?$format=json"
+                + "&$select=РасшифровкаПлатежа"
+                + "&$filter=DeletionMark eq false and Posted eq true";
+            using HttpResponseMessage paymentExplanationResponse = await httpClient.GetAsync(paymentExplanationUrl);
+            var paymentExplanation = await paymentExplanationResponse.Content.ReadFromJsonAsync<DebitToCurrentAccount>();
+
+            return paymentExplanation.Value.Where(x => x.PaymentsExplanation.Length > 0).SelectMany(y => y.PaymentsExplanation)
+                .Select(z => new PaymentDetails
+                {
+                    DocumentId = z.Ref_Key,
+                    ContractId = z.ContractId,
+                    InvoiceId = z.InvoiceId,
+                    Amount = z.Amount
+                });
+        }
+
+        public async Task<IEnumerable<CostItem>> CostItemAsync() // Статьи затрат
+        {
+            var expenseItemUrl = ApiUrl + "Catalog_СтатьиЗатрат?$format=json"
+                + "&$select=Ref_Key,Description"
+                + "&$filter=DeletionMark eq false";
+            using HttpResponseMessage expenseItemResponse = await httpClient.GetAsync(expenseItemUrl);
+            var expenseItem = await expenseItemResponse.Content.ReadFromJsonAsync<ExpenseItem>();
+            return expenseItem.Value.Select(x => new CostItem
+            {
+                CostItemId = x.Ref_Key,
+                Name = x.Description
             });
         }
     }

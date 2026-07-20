@@ -4,6 +4,7 @@ using DataFrom1C.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20260720065810_AddPaymentDetails")]
+    partial class AddPaymentDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,19 +79,6 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                     b.ToTable("Contractors");
                 });
 
-            modelBuilder.Entity("DataFrom1C.Domain.CostItem", b =>
-                {
-                    b.Property<string>("CostItemId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CostItemId");
-
-                    b.ToTable("CostItems");
-                });
-
             modelBuilder.Entity("DataFrom1C.Domain.MoreInformation", b =>
                 {
                     b.Property<Guid>("RowId")
@@ -119,9 +109,6 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ContractId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocumentId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InvoiceId")

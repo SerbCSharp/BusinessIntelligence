@@ -104,5 +104,19 @@ namespace DataFrom1C.Infrastructure.Repositories.MSSql
             await _dataContext.MoreInformations.AddRangeAsync(moreInformations);
             await _dataContext.SaveChangesAsync();
         }
+
+        public async Task PaymentDetailsAsync(IEnumerable<PaymentDetails> paymentDetails)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE PaymentsDetails");
+            await _dataContext.PaymentsDetails.AddRangeAsync(paymentDetails);
+            await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task CostItemAsync(IEnumerable<CostItem> costItems)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE CostItems");
+            await _dataContext.CostItems.AddRangeAsync(costItems);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }

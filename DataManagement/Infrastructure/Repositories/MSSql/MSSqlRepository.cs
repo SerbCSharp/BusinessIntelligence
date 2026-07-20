@@ -11,7 +11,23 @@ namespace DataManagement.Infrastructure.Repositories.MSSql
 
         public async Task<IEnumerable<AddObjectOfSaleInPurchasePayment>> AddObjectOfSaleInPurchasePaymentAsync()
         {
-            string sql = "SELECT PurchasePayments.DocumentId, PurchasePayments.ContractId, PurchasePayments.Date, PurchasePayments.Amount, PaymentPurpose, CashFlowItems.Name AS CashFlowItem,\r\nProductGroups.Name AS PropertyContract\r\nFROM PurchasePayments\r\nLEFT JOIN CashFlowItems ON PurchasePayments.CashFlowItemId = CashFlowItems.CashFlowItemId\r\nLEFT JOIN Contracts ON PurchasePayments.ContractId = Contracts.ContractId\r\nLEFT JOIN ProductGroups ON Contracts.ProductGroupId = ProductGroups.ProductGroupId\r\nWHERE NOT EXISTS ( SELECT * FROM ObjectOfSaleInPurchasePayments WHERE ObjectOfSaleInPurchasePayments.DocumentId = PurchasePayments.DocumentId)\r\nAND YEAR(PurchasePayments.Date) > 2025\r\nORDER BY PurchasePayments.Date";
+            string sql = "WITH Property AS (SELECT ProductGroups.Name, MoreInformations.ObjectId FROM MoreInformations " +
+                            "INNER JOIN ProductGroups ON MoreInformations.ObjectValue = ProductGroups.ProductGroupId " +
+                            "WHERE MoreInformations.ValueType LIKE N'%НоменклатурныеГруппы%'), " +
+                         "CostItem AS (SELECT CostItems.Name, MoreInformations.ObjectId FROM MoreInformations " +
+                            "INNER JOIN CostItems ON MoreInformations.ObjectValue = CostItems.CostItemId " +
+                            "WHERE MoreInformations.ValueType LIKE N'%СтатьиЗатрат%') " +
+                         "SELECT PurchasePayments.DocumentId, PurchasePayments.ContractId, PurchasePayments.Date, PurchasePayments.Amount, PaymentPurpose, " +
+                            "CashFlowItems.Name AS CashFlowItem, Property.Name AS Property, CostItem.Name AS CostItem " +
+                         "FROM PurchasePayments " +
+                         "LEFT JOIN CashFlowItems ON PurchasePayments.CashFlowItemId = CashFlowItems.CashFlowItemId " +
+                         "LEFT JOIN Contracts ON PurchasePayments.ContractId = Contracts.ContractId " +
+                         "LEFT JOIN PaymentsDetails ON PurchasePayments.DocumentId = PaymentsDetails.DocumentId " +
+                         "LEFT JOIN Property ON PaymentsDetails.InvoiceId = Property.ObjectId " +
+                         "LEFT JOIN CostItem ON PaymentsDetails.InvoiceId = CostItem.ObjectId " +
+                         "WHERE NOT EXISTS ( SELECT * FROM ObjectOfSaleInPurchasePayments WHERE ObjectOfSaleInPurchasePayments.DocumentId = PurchasePayments.DocumentId) " +
+                         "AND YEAR(PurchasePayments.Date) > 2025 " +
+                         "ORDER BY PurchasePayments.Date";
             return await _dbConnection.QueryAsync<AddObjectOfSaleInPurchasePayment>(sql);
         }
     }

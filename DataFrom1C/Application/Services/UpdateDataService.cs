@@ -89,5 +89,17 @@ namespace DataFrom1C.Application.Services
             var getMoreInformation = await _getData.MoreInformationAsync();
             await _saveData.MoreInformationAsync(getMoreInformation);
         }
+
+        public async Task PaymentDetailsAsync()
+        {
+            var getPaymentDetails = await _getData.PaymentDetailsAsync();
+            await _saveData.PaymentDetailsAsync(getPaymentDetails);
+        }
+
+        public async Task CostItemAsync()
+        {
+            var getCostItem = await _getData.CostItemAsync();
+            await _saveData.CostItemAsync(getCostItem);
+        }
     }
 }
