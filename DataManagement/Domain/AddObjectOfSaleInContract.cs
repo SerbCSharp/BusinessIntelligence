@@ -9,5 +9,6 @@
         public string Name { get; set; }
         public string Contractor { get; set; }
         public int TotalContractId { get; set; }
+        public string CodeContract { get; set; }
     }
 }
