@@ -11,5 +11,9 @@ namespace DataManagement.Application.Services
         {
             return await _getData.AddObjectOfSaleInPurchasePaymentAsync();
         }
+        public async Task<IEnumerable<AddObjectOfSaleInContract>> AddObjectOfSaleInContractAsync()
+        {
+            return await _getData.AddObjectOfSaleInContractAsync();
+        }
     }
 }

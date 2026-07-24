@@ -24,5 +24,6 @@ namespace DataFrom1C.Infrastructure.DataSource.Models.ContractCounterparties
 
         [JsonPropertyName("НоменклатурнаяГруппа_Key")]
         public string ProductGroupId { get; set; }
+        public string Code { get; set; }
     }
 }

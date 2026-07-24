@@ -13,5 +13,8 @@ namespace DataFrom1C.Infrastructure.DataSource.Models.ReceiptProcessing
 
         [JsonPropertyName("ДоговорКонтрагента_Key")]
         public string ContractId { get; set; }
+
+        [JsonPropertyName("Склад_Key")]
+        public string WarehouseId { get; set; }
     }
 }

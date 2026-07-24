@@ -95,7 +95,7 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
             });
 
             var receiptProcessingUrl = ApiUrl + "Document_ПоступлениеИзПереработки?$format=json"
-                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key"
+                + "&$select=Ref_Key,Date,СуммаДокумента,ДоговорКонтрагента_Key,Склад_Key"
                 + "&$filter=DeletionMark eq false and Posted eq true";
             using HttpResponseMessage receiptProcessingResponse = await httpClient.GetAsync(receiptProcessingUrl);
             var receiptProcessing = await receiptProcessingResponse.Content.ReadFromJsonAsync<ReceiptProcessing>();
@@ -104,7 +104,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 DocumentId = x.DocumentId,
                 Date = x.Date,
                 Amount = x.Amount,
-                ContractId = x.ContractId
+                ContractId = x.ContractId,
+                WarehouseId = x.WarehouseId
             });
 
             return purchaseGoodsServices.Concat(purchaseProcessing);
@@ -178,7 +179,7 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
         public async Task<IEnumerable<Contract>> ContractAsync() // Договоры контрагентов
         {
             var contractCounterpartiesUrl = ApiUrl + "Catalog_ДоговорыКонтрагентов?$format=json"
-                + "&$select=Ref_Key,Номер,Description,Дата,Сумма,Owner_Key,НоменклатурнаяГруппа_Key"
+                + "&$select=Ref_Key,Номер,Description,Дата,Сумма,Owner_Key,НоменклатурнаяГруппа_Key,Code"
                 + "&$filter=DeletionMark eq false";
             using HttpResponseMessage contractCounterpartiesResponse = await httpClient.GetAsync(contractCounterpartiesUrl);
             var contractCounterparties = await contractCounterpartiesResponse.Content.ReadFromJsonAsync<ContractCounterparties>();
@@ -190,7 +191,8 @@ namespace DataFrom1C.Infrastructure.DataSource.OneC
                 Number = x.Number,
                 Name = x.Name,
                 ContractorId = x.ContractorId,
-                ProductGroupId = x.ProductGroupId
+                ProductGroupId = x.ProductGroupId,
+                CodeContract = x.Code
             });
         }
 

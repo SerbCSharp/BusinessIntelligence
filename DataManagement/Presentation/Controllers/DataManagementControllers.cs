@@ -11,11 +11,22 @@ namespace DataManagement.Presentation.Controllers
         private readonly DataManagementService _dataManagementService = dataManagementService;
         private readonly ExportingReportsToExcel _exportingReportsToExcel = exportingReportsToExcel;
 
-        [HttpGet("AddObjectOfSaleInPurchasePaymentAsync")]
+        [HttpGet("AddObjectOfSaleInPurchasePayment")]
         public async Task<IActionResult> AddObjectOfSaleInPurchasePaymentAsync()
         {
-            var procurementPrice = await _dataManagementService.AddObjectOfSaleInPurchasePaymentAsync();
-            var fileBytes = _exportingReportsToExcel.Browse(procurementPrice);
+            var addObjectOfSaleInPurchasePayment = await _dataManagementService.AddObjectOfSaleInPurchasePaymentAsync();
+            var fileBytes = _exportingReportsToExcel.Browse(addObjectOfSaleInPurchasePayment);
+            string fileName = "Browse.xlsx";
+            string contentType = "application/octet-stream";
+
+            return File(fileBytes, contentType, fileName);
+        }
+
+        [HttpGet("AddObjectOfSaleInContract")]
+        public async Task<IActionResult> AddObjectOfSaleInContractAsync()
+        {
+            var addObjectOfSaleInContract = await _dataManagementService.AddObjectOfSaleInContractAsync();
+            var fileBytes = _exportingReportsToExcel.Browse(addObjectOfSaleInContract);
             string fileName = "Browse.xlsx";
             string contentType = "application/octet-stream";
 

@@ -12,6 +12,7 @@ namespace DataFromExcel.Presentation.Controllers
         public async Task<IActionResult> UpdateAsync()
         {
             await _updateDataService.ObjectOfSaleInPurchasePaymentAsync();
+            await _updateDataService.ObjectOfSaleInContractAsync();
             return NoContent();
         }
     }

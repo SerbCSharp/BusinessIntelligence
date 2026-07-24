@@ -14,5 +14,12 @@ namespace DataFromExcel.Infrastructure.Repositories.MSSql
             await _dataContext.ObjectOfSaleInPurchasePayments.AddRangeAsync(objectOfSaleInPurchasePayments);
             await _dataContext.SaveChangesAsync();
         }
+
+        public async Task ObjectOfSaleInContractAsync(IEnumerable<ObjectOfSaleInContract> objectOfSaleInContracts)
+        {
+            await _dataContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE ObjectOfSaleInContracts");
+            await _dataContext.ObjectOfSaleInContracts.AddRangeAsync(objectOfSaleInContracts);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }
